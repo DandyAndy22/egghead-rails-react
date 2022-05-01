@@ -1,15 +1,28 @@
-import { useState } from 'react';
+import {
+  useQuery,
+  gql
+} from "@apollo/client";
+import client from "components/apollo_client"
 
-export default function Example() {
-  // Declare a new state variable, which we'll call "count"
-  const [count, setCount] = useState(0);
+const QUERY = gql`
+users {
+  id
+  followers {
+    id
+  }
+}
+`
 
-  return h`
-    <div>
-      <p>You clicked ${count} times</p>
-      <button onClick=${() => setCount(count + 1)}>
-        Click me
-      </button>
-    </div>
-  `;
+export default Example() {
+
+const { loading, error, data } = useQuery(QUERY, {  client: client })
+
+return h`
+<div>
+  <p>You clicked ${count} times</p>
+  <button onClick=${() => setCount(count + 1)}>
+    Click me
+  </button>
+</div>
+`;
 }
